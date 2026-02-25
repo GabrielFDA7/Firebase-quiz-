@@ -1,29 +1,29 @@
 {
-    "project_info": {
-        "project_number": "YOUR_PROJECT_NUMBER",
-        "project_id": "YOUR_PROJECT_ID",
-        "storage_bucket": "YOUR_PROJECT_ID.appspot.com"
-    },
-    "client": [
-        {
-            "client_info": {
-                "mobilesdk_app_id": "1:YOUR_PROJECT_NUMBER:android:YOUR_APP_HASH",
-                "android_client_info": {
-                    "package_name": "com.quizapp.firebase"
-                }
-            },
-            "oauth_client": [],
-            "api_key": [
-                {
-                    "current_key": "YOUR_API_KEY"
-                }
-            ],
-            "services": {
-                "appinvite_service": {
-                    "other_platform_oauth_client": []
-                }
-            }
+  "project_info": {
+    "project_number": "815687523547",
+    "project_id": "quiz-com-firebase",
+    "storage_bucket": "quiz-com-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815687523547:android:9c637317c34bee669280fe",
+        "android_client_info": {
+          "package_name": "com.quizapp.firebase"
         }
-    ],
-    "configuration_version": "1"
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5eRtecI69-DD_8bmIfBuUwxo3lK-BsuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }
