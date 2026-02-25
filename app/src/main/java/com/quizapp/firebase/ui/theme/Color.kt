@@ -26,3 +26,8 @@ val QuizPrimaryDarkTheme = Color(0xFF9D97FF)
 val QuizBackgroundDark = Color(0xFF121212)
 val QuizSurfaceDark = Color(0xFF1E1E1E)
 val QuizOnBackgroundDark = Color(0xFFE1E1E1)
+
+// Ranking medal colors
+val QuizGold = Color(0xFFFFD700)
+val QuizSilver = Color(0xFFC0C0C0)
+val QuizBronze = Color(0xFFCD7F32)
