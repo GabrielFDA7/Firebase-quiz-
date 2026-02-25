@@ -1,0 +1,41 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+
+# Gradle files
+.gradle/
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+.DS_Store
+
+# Google Services (SENSITIVE — each dev must provide their own)
+# Uncomment the line below in production:
+# app/google-services.json
+
+# Signing configs
+*.jks
+*.keystore
+
+# Log files
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
