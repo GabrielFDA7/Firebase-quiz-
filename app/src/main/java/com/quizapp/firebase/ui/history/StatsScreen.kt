@@ -166,13 +166,17 @@ fun StatsCard(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = value,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
     }

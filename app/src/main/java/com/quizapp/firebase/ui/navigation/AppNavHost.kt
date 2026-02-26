@@ -17,6 +17,7 @@ import com.quizapp.firebase.ui.history.HistoryScreen
 import com.quizapp.firebase.ui.history.HistoryViewModel
 import com.quizapp.firebase.ui.history.StatsScreen
 import com.quizapp.firebase.ui.quiz.QuizScreen
+import com.quizapp.firebase.ui.quiz.QuizUiState
 import com.quizapp.firebase.ui.quiz.QuizViewModel
 import com.quizapp.firebase.ui.quiz.ResultScreen
 
@@ -47,7 +48,6 @@ fun AppNavHost(
                 onClearError = { authViewModel.clearError() }
             )
 
-            // Navegar ao Dashboard se fizer login com sucesso
             LaunchedEffect(authState.isLoggedIn) {
                 if (authState.isLoggedIn) {
                     navController.navigate(Screen.Dashboard.route) {
@@ -67,7 +67,6 @@ fun AppNavHost(
                 onClearError = { authViewModel.clearError() }
             )
 
-            // Navegar ao Dashboard se cadastrar com sucesso
             LaunchedEffect(authState.isLoggedIn) {
                 if (authState.isLoggedIn) {
                     navController.navigate(Screen.Dashboard.route) {
@@ -131,7 +130,18 @@ fun AppNavHost(
                 onNextQuestion = { quizViewModel.nextQuestion() },
                 onNavigateBack = { navController.popBackStack() },
                 onQuizFinished = {
-                    navController.navigate(Screen.Result.route) {
+                    // Navegar passando os resultados como argumentos
+                    val state = quizState
+                    navController.navigate(
+                        Screen.Result.createRoute(
+                            score = state.score,
+                            correct = state.correctAnswersCount,
+                            total = state.totalQuestions,
+                            time = state.timerSeconds,
+                            percentage = state.percentage,
+                            category = state.quizCategory
+                        )
+                    ) {
                         popUpTo(Screen.Dashboard.route)
                     }
                 },
@@ -140,17 +150,45 @@ fun AppNavHost(
         }
 
         // ===== RESULTADO =====
-        composable(Screen.Result.route) {
-            // Recuperar o QuizViewModel do backStack do Quiz para acessar o estado final
-            val quizEntry = remember(navController) {
-                navController.getBackStackEntry(Screen.Dashboard.route)
-            }
-            val quizViewModel: QuizViewModel = viewModel()
-            val quizState by quizViewModel.uiState.collectAsState()
+        composable(
+            route = Screen.Result.route,
+            arguments = listOf(
+                navArgument("score") { type = NavType.IntType },
+                navArgument("correct") { type = NavType.IntType },
+                navArgument("total") { type = NavType.IntType },
+                navArgument("time") { type = NavType.LongType },
+                navArgument("percentage") { type = NavType.StringType },
+                navArgument("category") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val args = backStackEntry.arguments!!
+            val totalQ = args.getInt("total")
+
+            // Reconstruir o estado a partir dos argumentos
+            val resultState = QuizUiState(
+                isLoading = false,
+                score = args.getInt("score"),
+                correctAnswersCount = args.getInt("correct"),
+                timerSeconds = args.getLong("time"),
+                quizCategory = args.getString("category") ?: "",
+                isQuizFinished = true,
+                // Criar lista fictícia para que totalQuestions e percentage funcionem
+                questions = List(totalQ) {
+                    com.quizapp.firebase.data.local.entity.QuestionEntity(
+                        id = "", category = "", questionText = "",
+                        optionA = "", optionB = "", optionC = "", optionD = "",
+                        correctAnswer = ""
+                    )
+                }
+            )
 
             ResultScreen(
-                uiState = quizState,
-                formatTime = { quizViewModel.formatTime(it) },
+                uiState = resultState,
+                formatTime = { seconds ->
+                    val min = seconds / 60
+                    val sec = seconds % 60
+                    "%02d:%02d".format(min, sec)
+                },
                 onPlayAgain = {
                     navController.popBackStack(Screen.Dashboard.route, false)
                 },

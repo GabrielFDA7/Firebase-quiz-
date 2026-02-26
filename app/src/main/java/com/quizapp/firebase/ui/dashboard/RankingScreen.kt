@@ -172,20 +172,19 @@ fun RankingCard(entry: RankingEntry) {
 
             // Nome e quizzes
             Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = entry.displayName,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                )
+                if (entry.isCurrentUser) {
                     Text(
-                        text = entry.displayName,
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold
+                        text = "(você)",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary
                     )
-                    if (entry.isCurrentUser) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "(você)",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
                 }
                 Text(
                     text = "${entry.totalQuizzes} quizzes",

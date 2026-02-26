@@ -124,12 +124,17 @@ fun HistoryCard(
                 Text(
                     text = result.quizCategory,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = formatDate(result.timestamp),
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1
                 )
             }
 
@@ -141,42 +146,54 @@ fun HistoryCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // Pontuação
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
                     Icon(
                         Icons.Default.EmojiEvents,
                         contentDescription = "Pontuação",
-                        modifier = Modifier.size(18.dp),
+                        modifier = Modifier.size(16.dp),
                         tint = performanceColor
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(3.dp))
                     Text(
                         text = "${result.score} pts",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1
                     )
                 }
 
                 // Acertos
                 Text(
-                    text = "${result.correctAnswers}/${result.totalQuestions} (${"%.0f".format(result.percentage)}%)",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "${result.correctAnswers}/${result.totalQuestions} (${"%1.0f".format(result.percentage)}%)",
+                    style = MaterialTheme.typography.bodySmall,
                     color = performanceColor,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center
                 )
 
                 // Tempo
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f),
+                    horizontalArrangement = Arrangement.End
+                ) {
                     Icon(
                         Icons.Default.Timer,
                         contentDescription = "Tempo",
-                        modifier = Modifier.size(18.dp),
+                        modifier = Modifier.size(16.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(3.dp))
                     Text(
                         text = formatTime(result.timeTakenSeconds),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1
                     )
                 }
             }

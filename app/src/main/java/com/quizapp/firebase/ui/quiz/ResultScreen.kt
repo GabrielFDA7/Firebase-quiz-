@@ -192,18 +192,21 @@ fun StatCard(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = value,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
             )
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1
             )
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                maxLines = 1
             )
         }
     }

@@ -38,7 +38,9 @@ fun DashboardScreen(
                         Text(
                             text = "Olá, $userName! 👋",
                             style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                         )
                         Text(
                             text = "Pronto para jogar?",
@@ -203,7 +205,7 @@ fun QuickActionCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -215,8 +217,10 @@ fun QuickActionCard(
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = label,
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Medium
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                softWrap = false
             )
         }
     }
