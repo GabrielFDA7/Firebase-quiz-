@@ -18,6 +18,7 @@ data class FirestoreUser(
     val totalQuizzes: Int = 0,
     val totalCorrect: Int = 0,
     val bestScore: Int = 0,
+    val totalScore: Int = 0,
     val createdAt: Long = System.currentTimeMillis()
 )
 

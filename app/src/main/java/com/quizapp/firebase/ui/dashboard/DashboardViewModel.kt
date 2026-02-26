@@ -23,6 +23,7 @@ import kotlinx.coroutines.tasks.await
 data class RankingEntry(
     val position: Int,
     val displayName: String,
+    val totalScore: Int,
     val bestScore: Int,
     val totalQuizzes: Int,
     val isCurrentUser: Boolean = false
@@ -82,7 +83,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
             _isLoading.value = true
             try {
                 val snapshot = firestore.collection("users")
-                    .orderBy("bestScore", Query.Direction.DESCENDING)
+                    .orderBy("totalScore", Query.Direction.DESCENDING)
                     .limit(20)
                     .get()
                     .await()
@@ -92,6 +93,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                     RankingEntry(
                         position = index + 1,
                         displayName = doc.getString("displayName") ?: "Anônimo",
+                        totalScore = doc.getLong("totalScore")?.toInt() ?: 0,
                         bestScore = doc.getLong("bestScore")?.toInt() ?: 0,
                         totalQuizzes = doc.getLong("totalQuizzes")?.toInt() ?: 0,
                         isCurrentUser = doc.id == currentUid
@@ -115,6 +117,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
             RankingEntry(
                 position = 1,
                 displayName = user.displayName,
+                totalScore = user.bestScore * user.totalQuizzes,
                 bestScore = user.bestScore,
                 totalQuizzes = user.totalQuizzes,
                 isCurrentUser = true

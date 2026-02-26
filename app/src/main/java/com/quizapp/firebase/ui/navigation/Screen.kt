@@ -1,6 +1,6 @@
 package com.quizapp.firebase.ui.navigation
 
-import java.net.URLEncoder
+import android.net.Uri
 
 /**
  * Rotas de navegação do app.
@@ -12,8 +12,7 @@ sealed class Screen(val route: String) {
     object Dashboard : Screen("dashboard")
     object Quiz : Screen("quiz/{category}") {
         fun createRoute(category: String): String {
-            val encoded = URLEncoder.encode(category, "UTF-8")
-            return "quiz/$encoded"
+            return "quiz/${Uri.encode(category)}"
         }
     }
     object Result : Screen("result/{score}/{correct}/{total}/{time}/{percentage}/{category}") {
@@ -25,8 +24,7 @@ sealed class Screen(val route: String) {
             percentage: Double,
             category: String
         ): String {
-            val encoded = URLEncoder.encode(category, "UTF-8")
-            return "result/$score/$correct/$total/$time/$percentage/$encoded"
+            return "result/$score/$correct/$total/$time/$percentage/${Uri.encode(category)}"
         }
     }
     object History : Screen("history")

@@ -49,11 +49,13 @@ class QuizRepository(
                     val currentQuizzes = snapshot.getLong("totalQuizzes") ?: 0
                     val currentCorrect = snapshot.getLong("totalCorrect") ?: 0
                     val currentBest = snapshot.getLong("bestScore") ?: 0
+                    val currentTotal = snapshot.getLong("totalScore") ?: 0
 
                     transaction.update(userDoc, mapOf(
                         "totalQuizzes" to currentQuizzes + 1,
                         "totalCorrect" to currentCorrect + result.correctAnswers,
-                        "bestScore" to maxOf(currentBest, result.score.toLong())
+                        "bestScore" to maxOf(currentBest, result.score.toLong()),
+                        "totalScore" to currentTotal + result.score
                     ))
                 }.await()
             } catch (e: Exception) {

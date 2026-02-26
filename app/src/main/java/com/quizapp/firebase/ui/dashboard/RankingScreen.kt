@@ -196,7 +196,7 @@ fun RankingCard(entry: RankingEntry) {
             // Score
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = "${entry.bestScore}",
+                    text = "${entry.totalScore}",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
