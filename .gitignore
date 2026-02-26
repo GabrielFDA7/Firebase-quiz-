@@ -39,3 +39,6 @@ local.properties
 # OS files
 Thumbs.db
 .DS_Store
+
+# Markdowns
+markdowns/
